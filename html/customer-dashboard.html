@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Portal | Customer Dashboard</title>
+    
+    <link rel="stylesheet" href="/AFinal/css/style.css">
+    <link rel="stylesheet" href="/AFinal/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Small inline fix for the nav buttons alignment */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .btn-icon-nav {
+            color: #64748b;
+            font-size: 1.2rem;
+            transition: color 0.2s;
+            padding: 8px;
+            border-radius: 50%;
+        }
+        .btn-icon-nav:hover {
+            color: var(--primary-blue);
+            background: #f1f5f9;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="dashboard-navbar">
+        <div class="logo">
+            <a href="customer-dashboard.html">Washing Unit (Pvt) Ltd<span class="dot">.</span></a>
+        </div>
+        
+        <div class="user-menu">
+            <div class="user-info">
+                <span class="user-name" id="customerName">Welcome, Customer</span>
+                <span class="user-role">Customer Account</span>
+            </div>
+            <div class="nav-actions">
+                <a href="profile.html" class="btn-icon-nav" title="Manage Profile">
+                    <i class="fa-solid fa-user-gear"></i>
+                </a>
+                
+                <a href="../index.html" class="btn-logout" title="Logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        
+        <section class="stats-grid">
+            <div class="stat-card blue">
+                <div class="stat-icon"><i class="fa-solid fa-box-archive"></i></div>
+                <div class="stat-details">
+                    <h3>Total Orders</h3>
+                    <p class="stat-number" id="totalOrders">...</p>
+                </div>
+            </div>
+
+            <div class="stat-card orange">
+                <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="stat-details">
+                    <h3>Pending Orders</h3>
+                    <p class="stat-number" id="pendingOrders">...</p>
+                    <small>Processing</small>
+                </div>
+            </div>
+
+            <div class="stat-card green">
+                <div class="stat-icon"><i class="fa-solid fa-check-circle"></i></div>
+                <div class="stat-details">
+                    <h3>Completed</h3>
+                    <p class="stat-number" id="completedOrders">...</p>
+                </div>
+            </div>
+
+            <div class="stat-card red">
+                <div class="stat-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                <div class="stat-details">
+                    <h3>Payment Due</h3>
+                    <p class="stat-number" id="paymentDue">...</p>
+                    <small>Action Required</small>
+                </div>
+            </div>
+        </section>
+
+        <section class="actions-section">
+            <h2>Quick Actions</h2>
+            <div class="actions-grid">
+                
+                <a href="place-order.html" class="action-card">
+                    <div class="action-icon"><i class="fa-solid fa-cart-plus"></i></div>
+                    <h3>Place New Order</h3>
+                    <p>Create a new service request for materials.</p>
+                </a>
+
+                <a href="view-orders.html" class="action-card">
+                    <div class="action-icon"><i class="fa-solid fa-list-check"></i></div>
+                    <h3>View Orders</h3>
+                    <p>Track status and view order history.</p>
+                </a>
+
+                <a href="make-payment.html" class="action-card">
+                    <div class="action-icon"><i class="fa-solid fa-credit-card"></i></div>
+                    <h3>Make Payment</h3>
+                    <p>Settle pending invoices securely.</p>
+                </a>
+
+                <a href="payment-history.html" class="action-card">
+                    <div class="action-icon"><i class="fa-solid fa-receipt"></i></div>
+                    <h3>Payment History</h3>
+                    <p>Download receipts and view past transactions.</p>
+                </a>
+
+            </div>
+        </section>
+
+        <section class="notifications-panel" id="alertPanel" style="display: none;">
+            <div class="alert-box">
+                <span id="alertText">Loading updates...</span>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="/AFinal/js/dashboard.js"></script>
+
+</body>
+</html>

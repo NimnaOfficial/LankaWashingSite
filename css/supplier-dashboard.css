@@ -1,0 +1,43 @@
+/* --- SUPPLIER DASHBOARD SPECIFIC STYLES --- */
+
+/* 1. Navbar Identity */
+.supplier-nav .dot-orange {
+    color: #f97316; /* Orange dot for Supplier Brand */
+}
+
+/* 2. Header Adjustment */
+.dashboard-header {
+    margin-bottom: 2rem;
+}
+
+.dashboard-header h2 {
+    font-size: 1.75rem;
+    color: var(--text-main);
+}
+
+.dashboard-header p {
+    color: var(--text-light);
+}
+
+/* 3. Stat Card Colors (Specific to Supplier Context) */
+/* Reusing .stat-card from dashboard.css but defining specific colors if missing */
+.stat-card.orange .stat-icon { background: #fff7ed; color: #ea580c; }
+.stat-card.blue .stat-icon   { background: #eff6ff; color: #2563eb; }
+.stat-card.red .stat-icon    { background: #fef2f2; color: #dc2626; }
+
+/* 4. Action Card Hover Effects (Orange Theme) */
+.supplier-card:hover {
+    border-color: #f97316; /* Orange Border on Hover */
+}
+
+.supplier-card .action-icon {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+.supplier-card:hover .action-icon {
+    background: #f97316;
+    color: white;
+}
+
+/* Responsive adjustments match the main dashboard.css automatically */

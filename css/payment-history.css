@@ -1,0 +1,196 @@
+/* --- PAYMENT HISTORY SPECIFIC STYLES --- */
+
+/* 1. Dashboard Navbar (Consistent with previous pages) */
+.dashboard-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.logo .dot { color: var(--primary-blue); }
+
+.nav-actions { display: flex; align-items: center; gap: 1rem; }
+
+.btn-text-sm {
+    text-decoration: none;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+    padding: 0.5rem;
+    border-radius: 6px;
+}
+
+.btn-text-sm:hover { color: var(--primary-blue); background: #eff6ff; }
+.btn-logout { color: #dc2626; padding: 0.5rem; }
+
+/* 2. Page Header */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 5%;
+}
+
+.page-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+}
+
+.page-header-row h2 {
+    font-size: 1.75rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+.page-header-row p { color: var(--text-light); }
+
+/* Date Filter Input */
+.input-wrapper-sm {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon-sm {
+    position: absolute;
+    left: 1rem;
+    color: var(--primary-blue);
+    pointer-events: none;
+    font-size: 0.9rem;
+}
+
+.date-filter {
+    padding: 0.6rem 1rem 0.6rem 2.5rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: white;
+    font-family: inherit;
+    color: var(--text-main);
+    cursor: pointer;
+}
+
+/* 3. Data Table */
+.table-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+}
+
+.table-responsive { overflow-x: auto; }
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.data-table thead {
+    background: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.data-table th {
+    padding: 1rem 1.5rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.data-table td {
+    padding: 1rem 1.5rem;
+    color: var(--text-main);
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+}
+
+.data-table tbody tr:hover { background-color: #f8fafc; }
+
+/* 4. Column Specific Styles */
+.fw-bold { font-weight: 700; color: var(--primary-blue); font-family: monospace; }
+.fw-amount { font-weight: 700; color: var(--text-main); }
+.text-muted { color: #94a3b8; }
+.text-strike { text-decoration: line-through; color: #94a3b8; }
+.text-right { text-align: right; }
+.text-xs { font-size: 0.75rem; color: #94a3b8; }
+
+/* Method Badge (Icon + Text) */
+.method-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.method-badge i { font-size: 1.1rem; }
+.text-blue { color: #2563eb; }
+.text-orange { color: #ea580c; }
+.text-gray { color: #64748b; }
+
+/* Status Badges */
+.badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.badge-success { background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; }
+.badge-warning { background: #fffbeb; color: #b45309; border: 1px solid #fcd34d; }
+.badge-danger  { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+
+/* Action Buttons */
+.btn-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #64748b;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-icon:hover {
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+    background: #eff6ff;
+}
+
+.btn-link-sm {
+    font-size: 0.85rem;
+    color: #dc2626;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn-link-sm:hover { text-decoration: underline; }

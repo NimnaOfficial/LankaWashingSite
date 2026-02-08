@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Portal | Supplier Dashboard</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/supplier-dashboard.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="dashboard-navbar supplier-nav">
+        <div class="logo">
+            <a href="../index.html">Washing Unit (Pvt) Ltd<span class="dot-orange">.</span></a>
+        </div>
+
+        <div class="user-menu">
+            <div class="user-info">
+                <span class="user-name" id="supplierName">Loading...</span>
+                <span class="user-role">Authorized Supplier</span>
+            </div>
+            <div class="nav-actions">
+                <a href="supplier-profile.html" class="btn-icon" title="Company Profile">
+                    <i class="fa-solid fa-building"></i>
+                </a>
+                <a href="../php/supplier-logout.php" class="btn-logout" title="Logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        
+        <header class="dashboard-header">
+            <h2>Supplier Overview</h2>
+            <p>Manage purchase orders and invoice submissions.</p>
+        </header>
+
+        <section class="stats-grid">
+            
+            <div class="stat-card orange">
+                <div class="stat-icon"><i class="fa-solid fa-dolly"></i></div>
+                <div class="stat-details">
+                    <h3>Total POs</h3>
+                    <p class="stat-number" id="totalPOs">...</p>
+                    
+                    <div style="display: flex; gap: 15px; font-size: 0.85rem; margin-top: 5px;">
+                        <span style="color: #ea580c; font-weight: 600;" title="Pending Action">
+                            <span id="newRequests">0</span> New
+                        </span>
+                        <span style="color: #16a34a; font-weight: 600;" title="Delivered/Accepted">
+                            <i class="fa-solid fa-check"></i> <span id="completedPOs">0</span> Done
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card blue">
+                <div class="stat-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                <div class="stat-details">
+                    <h3>Invoices Sent</h3>
+                    <p class="stat-number" id="invoicesSent">...</p>
+                </div>
+            </div>
+
+            <div class="stat-card red">
+                <div class="stat-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+                <div class="stat-details">
+                    <h3>Pending Payments</h3>
+                    <p class="stat-number" id="pendingPayments">...</p>
+                    <small id="pendingNote">Checking...</small>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="actions-section">
+            <h2>Operations Hub</h2>
+            <div class="actions-grid">
+                
+                <a href="view-po.html" class="action-card supplier-card">
+                    <div class="action-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                    <h3>View Purchase Orders</h3>
+                    <p>Review new inventory requests and accept/reject POs.</p>
+                </a>
+
+                <a href="upload-invoice.html" class="action-card supplier-card">
+                    <div class="action-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                    <h3>Upload Invoice</h3>
+                    <p>Submit PDF invoices for completed Purchase Orders.</p>
+                </a>
+
+                <a href="supplier-payments.html" class="action-card supplier-card">
+                    <div class="action-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                    <h3>Payment Status</h3>
+                    <p>Track the approval status of your submitted invoices.</p>
+                </a>
+
+                <a href="view-receipts.html" class="action-card supplier-card">
+                    <div class="action-icon"><i class="fa-solid fa-receipt"></i></div>
+                    <h3>View Receipts</h3>
+                    <p>Download remittance advice and payment proofs.</p>
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script src="../js/supplier-dashboard.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+/* --- FEATURES PAGE STYLES --- */
+
+/* Header */
+.page-header {
+    background: var(--secondary-bg);
+    text-align: center;
+    padding: 4rem 5% 2rem;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.page-header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+/* Features Grid */
+.features-section {
+    padding: 4rem 5%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    background: var(--white);
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+    border-color: transparent;
+}
+
+/* Feature Icons Colors */
+.icon-box.purple { background: #f3e8ff; color: #9333ea; }
+.icon-box.blue { background: #dbeafe; color: #2563eb; }
+.icon-box.green { background: #dcfce7; color: #16a34a; }
+.icon-box.orange { background: #ffedd5; color: #ea580c; }
+.icon-box.red { background: #fee2e2; color: #dc2626; }
+.icon-box.dark { background: #f1f5f9; color: #334155; }
+
+.feature-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-main);
+}
+
+.feature-card p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+/* Feature List (Checkmarks) */
+.feature-list {
+    list-style: none;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 1rem;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.feature-list li i {
+    color: var(--primary-blue);
+    font-size: 0.8rem;
+}
+
+/* CTA Banner */
+.cta-banner {
+    background: var(--primary-blue);
+    color: white;
+    text-align: center;
+    padding: 4rem 5%;
+    margin: 2rem 5%;
+    border-radius: 20px;
+}
+
+.cta-banner h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.cta-banner p {
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.btn-white {
+    background: white;
+    color: var(--primary-blue);
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.2s;
+    display: inline-block;
+}
+
+.btn-white:hover {
+    transform: scale(1.05);
+}

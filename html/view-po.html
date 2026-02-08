@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enterprise Portal | Purchase Orders</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/view-po.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body>
+    <nav class="dashboard-navbar">
+      <div class="logo">
+        <a href="supplier-dashboard.html">Washing Unit (Pvt) Ltd<span class="dot-orange">.</span></a>
+      </div>
+      <div class="user-menu">
+        <div class="nav-actions">
+          <a href="supplier-dashboard.html" class="btn-text-sm"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+          <a href="../php/supplier-logout.php" class="btn-logout" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="dashboard-container">
+      <header class="page-header-row">
+        <div>
+          <h2>Manage Purchase Orders</h2>
+          <p>Review incoming stock requests and confirm availability.</p>
+        </div>
+        <div class="header-actions">
+          <div class="select-wrapper-sm">
+            <select class="filter-select" onchange="filterTable(this.value)">
+              <option value="all">All Statuses</option>
+              <option value="Pending">Pending Action</option>
+              <option value="Accepted">Accepted</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+            <i class="fa-solid fa-filter select-icon-sm"></i>
+          </div>
+        </div>
+      </header>
+
+      <div class="table-card">
+        <div class="table-responsive">
+          <table class="data-table" id="poTable">
+            <thead>
+              <tr>
+                <th>Order Ref</th>
+                <th>Order Date</th>
+                <th>Item Description</th>
+                <th>Total Value</th>
+                <th>Status</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="poTableBody">
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      let currentFilter = "all";
+
+      // 1. FORMATTING HELPERS
+      function money(v) {
+        return Number(v || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+
+      function fmtDate(iso) {
+        if (!iso) return "-";
+        const d = new Date(iso);
+        return isNaN(d.getTime()) ? iso : d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "2-digit" });
+      }
+
+      function badgeClass(status) {
+        const s = String(status).toLowerCase();
+        if (s.includes("accept") || s.includes("success")) return "badge-success";
+        if (s.includes("reject") || s.includes("fail")) return "badge-danger";
+        if (s.includes("pending")) return "badge-warning";
+        return "badge-neutral";
+      }
+
+      function escapeHtml(str) {
+        return String(str ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      }
+
+      // 2. DATA LOADING
+      async function loadPOs() {
+        const tbody = document.getElementById("poTableBody");
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px;">Loading records...</td></tr>';
+
+        try {
+          const res = await fetch(`../php/supplier-get-pos.php?status=${encodeURIComponent(currentFilter)}`, { credentials: "same-origin" });
+          
+          if (res.status === 401) {
+            window.location.href = "supplier-login.html";
+            return;
+          }
+
+          const data = await res.json();
+          if (!data.success && !data.ok) throw new Error(data.error || "Failed to load data");
+
+          renderRows(data.rows || []);
+        } catch (err) {
+          tbody.innerHTML = `<tr><td colspan="6" style="color: red; text-align: center; padding: 20px;">Error: ${err.message}</td></tr>`;
+        }
+      }
+
+      // 3. RENDERING
+      function renderRows(rows) {
+        const tbody = document.getElementById("poTableBody");
+        tbody.innerHTML = "";
+
+        if (rows.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px;">No records found matching this filter.</td></tr>';
+          return;
+        }
+
+        rows.forEach((row) => {
+          const status = row.status || "Pending";
+          const type = row.type || "PO";
+          const items = row.itemsSummary || "—";
+          const amount = row.orderTotal || 0;
+          const isPending = status.toLowerCase() === "pending";
+
+          const typeBadge = type === "DELIVERY" 
+            ? `<span class="badge" style="background:#f0f9ff; color:#0369a1; border:1px solid #bae6fd;">Delivery</span>` 
+            : `<span class="badge" style="background:#fdf4ff; color:#701a75; border:1px solid #f5d0fe;">PO</span>`;
+
+          tbody.insertAdjacentHTML("beforeend", `
+            <tr>
+              <td class="fw-bold">
+                ${type === 'PO' ? 'PO-' : 'DEL-'}${String(row.id).padStart(4, "0")}
+                <div style="margin-top:4px;">${typeBadge}</div>
+              </td>
+              <td class="text-muted">${fmtDate(row.orderDate)}</td>
+              <td>
+                <div style="font-weight:600; color:#1e293b;">${type} Entry</div>
+                <div style="font-size:0.85rem; color:#64748b; white-space: normal; max-width: 300px;">${escapeHtml(items)}</div>
+              </td>
+              <td class="fw-amount" style="font-weight:700;">Rs ${money(amount)}</td>
+              <td><span class="badge ${badgeClass(status)}">${status}</span></td>
+              <td class="text-right">
+                ${isPending ? `
+                  <div class="action-group" style="display: flex; justify-content: flex-end; gap: 8px;">
+                    <button class="btn-icon btn-accept" style="color:#15803d; background:#f0fdf4; border:none; padding:8px; border-radius:6px; cursor:pointer;" 
+                            onclick="updateStatus(${row.id}, 'Accepted', '${type}')" title="Accept">
+                      <i class="fa-solid fa-check"></i>
+                    </button>
+                    <button class="btn-icon btn-reject" style="color:#b91c1c; background:#fef2f2; border:none; padding:8px; border-radius:6px; cursor:pointer;" 
+                            onclick="updateStatus(${row.id}, 'Rejected', '${type}')" title="Reject">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                ` : `<span style="color:#94a3b8; font-size:0.85rem;"><i class="fa-solid fa-lock"></i> Locked</span>`}
+              </td>
+            </tr>
+          `);
+        });
+      }
+
+      // 4. STATUS UPDATES
+      async function updateStatus(id, newStatus, type) {
+        if (!confirm(`Confirm marking this ${type} as ${newStatus}?`)) return;
+
+        const body = new URLSearchParams();
+        body.append('purchaseOrderId', id);
+        body.append('status', newStatus);
+        body.append('type', type);
+
+        try {
+          const res = await fetch("../php/supplier-update-po-status.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: body,
+            credentials: "same-origin",
+          });
+
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Update failed");
+
+          alert(`Success! Order marked as ${newStatus}.`);
+          loadPOs(); 
+        } catch (err) {
+          alert("System Error: " + err.message);
+        }
+      }
+
+      function filterTable(status) {
+        currentFilter = status;
+        loadPOs();
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", loadPOs);
+    </script>
+  </body>
+</html>

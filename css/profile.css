@@ -1,0 +1,318 @@
+/* --- PROFILE MANAGER STYLES --- */
+
+/* 1. Layout Grid */
+.profile-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 5%;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr; /* Sidebar fixed width, content flexible */
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .profile-grid {
+        grid-template-columns: 1fr; /* Stack on mobile */
+    }
+}
+
+/* 2. Identity Card (Sidebar) */
+.profile-sidebar .identity-card {
+    background: white;
+    padding: 2.5rem 1.5rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid #eff6ff;
+}
+
+.btn-edit-avatar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--primary-blue);
+    color: white;
+    border: 2px solid white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.btn-edit-avatar:hover { transform: scale(1.1); }
+
+.user-name {
+    font-size: 1.5rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+.badge-pill {
+    background: #f0fdf4;
+    color: #16a34a;
+    padding: 0.35rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.stats-mini {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 1.5rem;
+}
+
+.stat-item strong {
+    display: block;
+    font-size: 1.25rem;
+    color: var(--text-main);
+}
+
+.stat-item span {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+}
+
+/* 3. Settings Cards (Right Column) */
+.settings-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.02);
+    border: 1px solid #e2e8f0;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--text-main);
+}
+
+.btn-ghost {
+    background: transparent;
+    border: 1px solid #cbd5e1;
+    color: var(--text-light);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+}
+
+/* 4. Form Styles */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.full-width { grid-column: span 2; }
+
+@media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .full-width { grid-column: span 1; }
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    color: #94a3b8;
+    z-index: 2;
+}
+
+.input-wrapper input, textarea {
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 2.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #f8fafc; /* Gray background implies disabled initially */
+    font-size: 0.95rem;
+    color: var(--text-main);
+    transition: all 0.2s;
+}
+
+textarea {
+    padding-left: 1rem; /* No icon for textarea usually */
+    resize: vertical;
+}
+
+/* Disabled State Styling */
+input:disabled, textarea:disabled {
+    color: #64748b;
+    cursor: default;
+}
+
+/* 5. Action Buttons */
+.form-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.hidden { display: none; }
+
+.btn-primary {
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background: white;
+    border: 1px solid #cbd5e1;
+    color: var(--text-main);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-outline-danger {
+    background: white;
+    border: 1px solid #fca5a5;
+    color: #dc2626;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-outline-danger:hover {
+    background: #fef2f2;
+    border-color: #dc2626;
+}
+/* --- DASHBOARD NAVBAR STYLES --- */
+.dashboard-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.logo a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.logo .dot {
+    color: var(--primary-blue);
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Back Link Style */
+.btn-text-sm {
+    text-decoration: none;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+}
+
+.btn-text-sm:hover {
+    color: var(--primary-blue);
+    background: #eff6ff;
+    transform: translateX(-3px); /* Subtle nudge left effect */
+}
+
+/* Logout Button Style */
+.btn-logout {
+    color: #dc2626;
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.btn-logout:hover {
+    background: #fee2e2;
+}

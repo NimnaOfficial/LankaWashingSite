@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Portal | My Profile</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="dashboard-navbar">
+        <div class="logo">
+            <a href="customer-dashboard.html">Washing Unit (Pvt) Ltd<span class="dot">.</span></a>
+        </div>
+        
+        <div class="user-menu">
+            <div class="nav-actions">
+                <a href="customer-dashboard.html" class="btn-text-sm">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+                </a>
+                <a href="../php/logout.php" class="btn-logout" title="Logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="profile-container">
+        <div class="profile-grid">
+            
+            <aside class="profile-sidebar">
+                <div class="identity-card">
+                    <div class="avatar-wrapper">
+                        <img src="https://ui-avatars.com/api/?name=User&background=2563eb&color=fff&size=150" 
+                             alt="Profile" class="avatar-img" id="profileAvatar">
+                    </div>
+                    <h2 class="user-name" id="display-name">Loading...</h2>
+                    <span class="user-role badge-pill">Verified Customer</span>
+
+                    <div class="stats-mini">
+                        <div class="stat-item">
+                            <strong id="ordersCount">-</strong>
+                            <span>Orders</span>
+                        </div>
+                        <div class="stat-item">
+                            <strong>Active</strong>
+                            <span>Status</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="profile-content">
+                
+                <div class="settings-card">
+                    <header class="card-header">
+                        <h3>Personal Information</h3>
+                        <button class="btn-ghost" id="edit-toggle" onclick="toggleEdit()">
+                            <i class="fa-solid fa-pen-to-square"></i> Edit Details
+                        </button>
+                    </header>
+
+                    <form id="profileForm" onsubmit="updateProfile(event)">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Full Name</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-user input-icon"></i>
+                                    <input type="text" id="fullName" disabled>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Email Address</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-envelope input-icon"></i>
+                                    <input type="email" id="emailDisplay" disabled 
+                                           style="opacity: 0.7; cursor: not-allowed;" 
+                                           title="Contact support to change email">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Phone Number</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-phone input-icon"></i>
+                                    <input type="tel" id="phone" disabled>
+                                </div>
+                            </div>
+
+                            <div class="input-group full-width">
+                                <label>Billing Address</label>
+                                <div class="input-wrapper">
+                                    <textarea id="address" rows="2" disabled></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions hidden" id="profile-actions">
+                            <button type="button" class="btn-secondary" onclick="cancelEdit()">Cancel</button>
+                            <button type="submit" class="btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="settings-card">
+                    <header class="card-header">
+                        <h3>Security</h3>
+                    </header>
+
+                    <form id="securityForm" onsubmit="updatePassword(event)">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Current Password</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-lock input-icon"></i>
+                                    <input type="password" id="currentPassword" placeholder="••••••••" required>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label>New Password</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-key input-icon"></i>
+                                    <input type="password" id="newPassword" placeholder="Enter new password" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-outline-danger">Update Password</button>
+                        </div>
+                    </form>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <script src="../js/profile-edit.js"></script>
+</body>
+</html>

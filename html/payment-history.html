@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Portal | Payment History</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/payment-history.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="dashboard-navbar">
+        <div class="logo">
+            <a href="customer-dashboard.html">Washing Unit (Pvt) Ltd<span class="dot">.</span></a>
+        </div>
+        
+        <div class="user-menu">
+            <div class="nav-actions">
+                <a href="customer-dashboard.html" class="btn-text-sm">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+                </a>
+                <a href="../index.html" class="btn-logout" title="Logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        
+        <header class="page-header-row">
+            <div>
+                <h2>Payment History</h2>
+                <p>View past transactions and payment statuses.</p>
+            </div>
+            
+            <div class="header-actions">
+                <div class="input-wrapper-sm">
+                    <i class="fa-regular fa-calendar input-icon-sm"></i>
+                    <input type="month" class="date-filter" id="monthFilter">
+                </div>
+            </div>
+        </header>
+
+        <div class="table-card">
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Date</th>
+                            <th>Order Ref</th>
+                            <th>Method</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody">
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 2rem; color: #64748b;">
+                                <i class="fa-solid fa-spinner fa-spin"></i> Loading transactions...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Set Date Filter Default
+            const now = new Date();
+            const monthStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+            document.getElementById('monthFilter').value = monthStr;
+
+            // 2. Load Real Data
+            loadHistory();
+        });
+
+        async function loadHistory() {
+            const tbody = document.getElementById("historyBody");
+
+            try {
+                // FETCH FROM PHP
+                const res = await fetch('../php/payments.php');
+                const data = await res.json();
+
+                // ERROR HANDLING
+                if (data.error) {
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red; padding: 20px;">Error: ${data.error}</td></tr>`;
+                    return;
+                }
+
+                // EMPTY DATA HANDLING
+                if (!data.data || data.data.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 3rem; color: #94a3b8;">No payment history found.</td></tr>`;
+                    return;
+                }
+
+                // CLEAR LOADING SPINNER
+                tbody.innerHTML = ""; 
+
+                // RENDER ROWS
+                data.data.forEach(row => {
+                    // Date Formatting
+                    const dateObj = new Date(row.date);
+                    const dateStr = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+                    // Badge Logic
+                    let badgeClass = "badge-neutral";
+                    const s = row.status.toLowerCase();
+                    if (s === 'success' || s === 'paid' || s === 'completed') badgeClass = "badge-success";
+                    else if (s === 'pending' || s === 'verifying') badgeClass = "badge-warning";
+                    else if (s === 'failed' || s === 'cancelled') badgeClass = "badge-danger";
+
+                    // Icon Logic
+                    let methodHtml = `<div class="method-badge"><i class="fa-solid fa-credit-card"></i> ${row.method}</div>`;
+                    if (row.method.toLowerCase().includes('bank')) {
+                        methodHtml = `<div class="method-badge"><i class="fa-solid fa-building-columns text-gray"></i> ${row.method}</div>`;
+                    } else if (row.method.toLowerCase().includes('card')) {
+                        methodHtml = `<div class="method-badge"><i class="fa-brands fa-cc-visa text-blue"></i> ${row.method}</div>`;
+                    }
+
+                    // HTML Construction
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td class="fw-bold">${row.transaction}</td>
+                        <td class="text-muted">${dateStr}</td>
+                        <td>${row.orderRef}</td>
+                        <td>${methodHtml}</td>
+                        <td class="fw-amount">$${row.amount.toFixed(2)}</td>
+                        <td><span class="badge ${badgeClass}">${row.status}</span></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+            } catch (err) {
+                console.error(err);
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red; padding: 20px;">Connection Error: Could not fetch data.</td></tr>`;
+            }
+        }
+    </script>
+
+</body>
+</html>

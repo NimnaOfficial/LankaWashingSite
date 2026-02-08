@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enterprise Portal | Supplier Login</title>
+
+    <!-- ✅ correct paths -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/supplier-login.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <nav class="auth-navbar">
+      <div class="logo">
+        <a href="../index.html"
+          >Washing Unit (Pvt) Ltd<span class="dot">.</span></a
+        >
+      </div>
+      <div class="nav-actions">
+        <span class="nav-text">Not a supplier?</span>
+        <a href="customer-login.html" class="btn-text-sm"
+          >Customer Login &rarr;</a
+        >
+      </div>
+    </nav>
+
+    <main class="login-wrapper">
+      <div class="login-card">
+        <header class="login-header">
+          <div class="brand-icon">
+            <i class="fa-solid fa-truck-fast"></i>
+          </div>
+          <h2>Supplier Hub</h2>
+          <p>Secure access for authorized vendors and logistics partners.</p>
+        </header>
+
+        <form class="enterprise-form" id="supplierLoginForm">
+          <div class="input-group">
+            <label for="supplier-id">Supplier ID or Email</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-id-badge input-icon"></i>
+              <input
+                type="text"
+                id="supplier-id"
+                name="login"
+                placeholder="Supplier ID (e.g. 1) or Email"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-lock input-icon"></i>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn-primary full-width mt-4"
+            style="background-color: chocolate"
+          >
+            Access Dashboard
+          </button>
+        </form>
+
+        <footer class="login-footer">
+          <p>
+            Need access? Contact <a href="contact.html">Procurement Support</a>.
+          </p>
+        </footer>
+      </div>
+    </main>
+
+    <script>
+      const form = document.getElementById("supplierLoginForm");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const login = document.getElementById("supplier-id").value.trim();
+        const password = document.getElementById("password").value;
+
+        try {
+          const res = await fetch("../php/supplier-login.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({ login, password }),
+            credentials: "same-origin",
+          });
+
+          const data = await res.json();
+
+          if (!res.ok || data.error) {
+            alert(data.error || "Login failed.");
+            return;
+          }
+
+          window.location.href = "supplier-dashboard.html";
+        } catch (err) {
+          alert("Server error. Please try again.");
+        }
+      });
+    </script>
+  </body>
+</html>

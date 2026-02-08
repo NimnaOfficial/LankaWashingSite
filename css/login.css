@@ -1,0 +1,162 @@
+/* --- LOGIN PAGE SPECIFIC STYLES --- */
+
+/* 1. Auth Navbar (Specific Necessity: Minimalist) */
+.auth-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background: transparent; /* Seamless blend */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.auth-navbar .logo a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-text {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    display: none; /* Hide on very small mobile */
+}
+
+@media (min-width: 600px) {
+    .nav-text { display: block; }
+}
+
+.btn-text-sm {
+    text-decoration: none;
+    color: var(--primary-blue);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background: rgba(37, 99, 235, 0.05);
+    transition: background 0.2s;
+}
+
+.btn-text-sm:hover {
+    background: rgba(37, 99, 235, 0.1);
+}
+
+/* 2. Login Layout */
+.login-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--secondary-bg);
+    padding: 2rem;
+    padding-top: 5rem; /* Space for the absolute navbar */
+}
+
+.login-card {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+    width: 100%;
+    max-width: 480px; /* Narrower than register form for focus */
+    text-align: left;
+}
+
+/* 3. Header & Form Elements */
+.login-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.login-header h2 {
+    font-size: 2rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+.login-header p {
+    color: var(--text-light);
+}
+
+/* Input Styles are inherited from style.css, but we add specific wrappers */
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    color: #94a3b8;
+    z-index: 2;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 2.5rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background: #f8fafc;
+    transition: all 0.2s;
+    font-size: 1rem;
+}
+
+.input-wrapper input:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* Forgot Password Link */
+.forgot-pass {
+    text-align: right;
+    margin-top: 0.5rem;
+}
+
+.forgot-pass a {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    text-decoration: none;
+}
+
+.forgot-pass a:hover {
+    color: var(--primary-blue);
+    text-decoration: underline;
+}
+
+/* Footer Actions */
+.login-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f1f5f9;
+    font-size: 0.95rem;
+    color: var(--text-light);
+}
+
+.login-footer a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.mt-4 { margin-top: 1.5rem; }
+.full-width { width: 100%; padding: 1rem; font-size: 1rem; }

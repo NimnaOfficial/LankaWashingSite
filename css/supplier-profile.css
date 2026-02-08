@@ -1,0 +1,263 @@
+/* --- SUPPLIER PROFILE STYLES --- */
+
+/* 1. Navbar Override */
+.dashboard-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo a { text-decoration: none; color: #0f172a; font-size: 1.5rem; font-weight: 800; }
+.dot-orange { color: #f97316; } /* Orange Brand Dot */
+
+.nav-actions { display: flex; align-items: center; gap: 1rem; }
+
+.btn-text-sm {
+    text-decoration: none;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.btn-text-sm:hover {
+    color: #f97316; /* Orange Hover */
+    background: #fff7ed;
+    transform: translateX(-3px);
+}
+
+.btn-logout { color: #dc2626; font-size: 1.1rem; }
+
+/* 2. Layout Grid */
+.profile-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 5%;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 850px) {
+    .profile-grid { grid-template-columns: 1fr; }
+}
+
+/* 3. Identity Sidebar */
+.identity-card {
+    background: white;
+    padding: 2.5rem 1.5rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+}
+
+/* Company Logo Style */
+.company-logo-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px; /* Square for companies */
+    background: #fff7ed;
+    color: #ea580c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    border: 2px dashed #fed7aa;
+}
+
+.btn-edit-avatar {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    background: #f97316;
+    color: white;
+    border: 2px solid white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.btn-edit-avatar:hover { transform: scale(1.1); }
+
+.user-name {
+    font-size: 1.4rem;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+/* Orange Badge */
+.badge-pill {
+    background: #fff7ed;
+    color: #c2410c;
+    border: 1px solid #ffedd5;
+    padding: 0.35rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.stats-mini {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 1.5rem;
+}
+
+.stat-item strong { display: block; font-size: 1.1rem; color: #0f172a; }
+.stat-item span { font-size: 0.8rem; color: #64748b; text-transform: uppercase; }
+
+/* 4. Settings Cards */
+.settings-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+    border: 1px solid #e2e8f0;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f1f5f9;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.card-header h3 { margin: 0; font-size: 1.25rem; color: #0f172a; }
+.section-desc { width: 100%; font-size: 0.9rem; color: #64748b; margin-top: 0.25rem; }
+
+/* Ghost Button (Orange Hover) */
+.btn-ghost {
+    background: transparent;
+    border: 1px solid #cbd5e1;
+    color: #64748b;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+    border-color: #f97316;
+    color: #f97316;
+}
+
+/* 5. Forms */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.full-width { grid-column: span 2; }
+@media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } .full-width { grid-column: span 1; } }
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.input-wrapper { position: relative; display: flex; align-items: center; }
+.input-icon { position: absolute; left: 1rem; color: #94a3b8; }
+
+input, textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #f8fafc;
+    font-size: 0.95rem;
+    color: #0f172a;
+    transition: all 0.2s;
+}
+
+.input-wrapper input { padding-left: 2.5rem; }
+
+/* Disabled State */
+input:disabled, textarea:disabled { color: #64748b; cursor: default; }
+
+/* Focus State (Orange) */
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #f97316;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1);
+}
+
+/* 6. Buttons */
+.form-actions { margin-top: 2rem; display: flex; gap: 1rem; justify-content: flex-end; }
+.hidden { display: none; }
+
+.btn-primary {
+    background: #f97316; /* Supplier Orange */
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover { background: #c2410c; }
+
+.btn-secondary {
+    background: white;
+    border: 1px solid #cbd5e1;
+    color: #0f172a;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-outline-danger {
+    background: white;
+    border: 1px solid #fca5a5;
+    color: #dc2626;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-outline-danger:hover { background: #fef2f2; border-color: #dc2626; }

@@ -1,0 +1,172 @@
+/* --- SUPPLIER LOGIN SPECIFIC STYLES --- */
+
+/* 1. Navbar Overlay */
+.auth-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.auth-navbar .logo a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-text {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .nav-text { display: block; }
+}
+
+.btn-text-sm {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.6);
+    transition: background 0.2s;
+    border: 1px solid transparent;
+}
+
+.btn-text-sm:hover {
+    background: white;
+    border-color: #e2e8f0;
+    color: var(--primary-blue);
+}
+
+/* 2. Layout Wrapper */
+.login-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Slightly warmer background for supplier distinction */
+    background: linear-gradient(135deg, #f8fafc 0%, #fff7ed 100%); 
+    padding: 2rem;
+    padding-top: 6rem;
+}
+
+.login-card {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    width: 100%;
+    max-width: 450px;
+    border-top: 4px solid #f97316; /* Orange top border for Supplier Identity */
+}
+
+/* 3. Header & Icon */
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.brand-icon {
+    width: 60px;
+    height: 60px;
+    background: #ffedd5; /* Light Orange background */
+    color: #ea580c;       /* Dark Orange icon */
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    margin: 0 auto 1rem;
+}
+
+.login-header h2 {
+    font-size: 1.75rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+.login-header p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+/* 4. Form Elements */
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    color: #94a3b8;
+    z-index: 2;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 2.5rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background: #f8fafc;
+    transition: all 0.2s;
+    font-size: 1rem;
+}
+
+.input-wrapper input:focus {
+    outline: none;
+    border-color: #f97316; /* Orange focus ring for suppliers */
+    background: white;
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1);
+}
+
+/* 5. Footer & Buttons */
+.mt-4 { margin-top: 1.5rem; }
+.full-width { width: 100%; padding: 0.85rem; font-size: 1rem; }
+
+.login-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f1f5f9;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.login-footer a {
+    color: #f97316;
+    text-decoration: none;
+    font-weight: 600;
+}

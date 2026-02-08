@@ -1,0 +1,209 @@
+/* --- SUPPLIER PAYMENT STATUS STYLES --- */
+
+/* 1. Navbar Override (Supplier Theme) */
+.dashboard-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo a { text-decoration: none; color: #0f172a; font-size: 1.5rem; font-weight: 800; }
+.dot-orange { color: #f97316; }
+
+.nav-actions { display: flex; align-items: center; gap: 1rem; }
+
+.btn-text-sm {
+    text-decoration: none;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.btn-text-sm:hover { color: #f97316; background: #fff7ed; transform: translateX(-3px); }
+.btn-logout { color: #dc2626; font-size: 1.1rem; }
+
+/* 2. Page Layout & Header */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 5%;
+}
+
+.page-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+}
+
+.page-header-row h2 { font-size: 1.75rem; color: #0f172a; margin-bottom: 0.5rem; }
+.page-header-row p { color: #64748b; }
+
+/* Filter Dropdown */
+.select-wrapper-sm { position: relative; display: flex; align-items: center; }
+.select-icon-sm { position: absolute; right: 1rem; color: #f97316; pointer-events: none; font-size: 0.85rem; }
+
+.filter-select {
+    padding: 0.6rem 2.5rem 0.6rem 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: white;
+    font-weight: 600;
+    color: #0f172a;
+    cursor: pointer;
+    appearance: none;
+}
+.filter-select:hover { border-color: #f97316; }
+
+/* 3. Financial Summary Cards */
+.summary-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.summary-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+}
+
+.icon-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.summary-card h3 { font-size: 0.9rem; color: #64748b; margin-bottom: 0.25rem; font-weight: 600; }
+.summary-card .amount { font-size: 1.5rem; font-weight: 800; color: #0f172a; }
+
+/* Card Variants */
+.card-orange .icon-box { background: #fff7ed; color: #ea580c; }
+.card-orange { border-bottom: 4px solid #f97316; }
+
+.card-green .icon-box { background: #f0fdf4; color: #16a34a; }
+.card-green { border-bottom: 4px solid #22c55e; }
+
+
+/* 4. Data Table */
+.table-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+}
+
+.table-responsive { overflow-x: auto; }
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.data-table thead { background: #fff7ed; border-bottom: 2px solid #fed7aa; }
+
+.data-table th {
+    padding: 1rem 1.5rem;
+    font-weight: 700;
+    color: #c2410c; /* Orange Header Text */
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.data-table td {
+    padding: 1.25rem 1.5rem;
+    color: #0f172a;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+}
+
+.data-table tbody tr:hover { background: #fffcf5; }
+
+/* Column Styles */
+.fw-bold { font-weight: 700; color: #ea580c; font-family: monospace; }
+.fw-amount { font-weight: 700; color: #0f172a; }
+.text-muted { color: #94a3b8; font-size: 0.9rem; }
+.text-strike { text-decoration: line-through; opacity: 0.6; }
+.text-right { text-align: right; }
+.text-error { color: #dc2626; font-weight: 600; }
+.text-done { color: #16a34a; font-weight: 600; font-size: 0.9rem; }
+
+/* 5. Status Badges */
+.badge {
+    padding: 0.35rem 0.85rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.badge-warning { background: #fffbeb; color: #b45309; border: 1px solid #fcd34d; } /* Verifying */
+.badge-info    { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; } /* Scheduled */
+.badge-success { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; } /* Paid */
+.badge-danger  { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; } /* Rejected */
+
+/* 6. Action Buttons */
+.btn-sm {
+    padding: 0.5rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+    background: white;
+}
+
+/* Red Outline (Cancel) */
+.btn-danger-outline {
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+}
+
+.btn-danger-outline:hover {
+    border-color: #fecaca;
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+/* Green Outline (Done) */
+.btn-success-outline {
+    border: 1px solid #e2e8f0;
+    color: #16a34a;
+}
+
+.btn-success-outline:hover {
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+    color: #15803d;
+}

@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enterprise Portal | Supplier Profile</title>
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/supplier-profile.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="dashboard-navbar">
+      <div class="logo">
+        <a href="supplier-dashboard.html"
+          >Washing Unit (Pvt) Ltd<span class="dot-orange">.</span></a
+        >
+      </div>
+
+      <div class="user-menu">
+        <div class="nav-actions">
+          <a href="supplier-dashboard.html" class="btn-text-sm">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+          </a>
+          <!-- use real logout if you have it -->
+          <a
+            href="../php/supplier-logout.php"
+            class="btn-logout"
+            title="Logout"
+          >
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="profile-container">
+      <div class="profile-grid">
+        <aside class="profile-sidebar">
+          <div class="identity-card">
+            <div class="avatar-wrapper">
+              <div class="company-logo-placeholder">
+                <i class="fa-solid fa-building"></i>
+              </div>
+              <button class="btn-edit-avatar" title="Upload Logo" type="button">
+                <i class="fa-solid fa-camera"></i>
+              </button>
+            </div>
+
+            <h2 class="user-name" id="sidebarCompany">Supplier</h2>
+            <span class="user-role badge-pill">Verified Supplier</span>
+
+            <div class="stats-mini">
+              <div class="stat-item">
+                <strong id="sidebarSupplierId">SUP-0</strong>
+                <span>ID</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <section class="profile-content">
+          <!-- Company -->
+          <div class="settings-card">
+            <header class="card-header">
+              <h3>Company Information</h3>
+              <button
+                class="btn-ghost"
+                id="edit-company-btn"
+                type="button"
+                onclick="toggleEdit('companyForm', 'edit-company-btn')"
+              >
+                Edit Details
+              </button>
+            </header>
+
+            <form id="companyForm" onsubmit="saveCompanyDetails(event)">
+              <div class="form-grid">
+                <div class="input-group full-width">
+                  <label>Registered Company Name</label>
+                  <input type="text" id="companyName" disabled />
+                </div>
+
+                <div class="input-group">
+                  <label>Business Reg. No (BRN)</label>
+                  <input
+                    type="text"
+                    id="brn"
+                    disabled
+                    style="background: #f1f5f9; cursor: not-allowed"
+                    title="Cannot change BRN"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Contact Email</label>
+                  <input type="email" id="email" disabled />
+                </div>
+
+                <div class="input-group">
+                  <label>Office Phone</label>
+                  <input type="tel" id="phone" disabled />
+                </div>
+
+                <div class="input-group full-width">
+                  <label>Headquarters Address</label>
+                  <textarea id="address" rows="2" disabled></textarea>
+                </div>
+              </div>
+
+              <div class="form-actions hidden" id="companyForm-actions">
+                <button
+                  type="button"
+                  class="btn-secondary"
+                  onclick="window.location.reload()"
+                >
+                  Cancel
+                </button>
+                <button type="submit" class="btn-primary">Save Changes</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Bank -->
+          <div class="settings-card">
+            <header class="card-header">
+              <h3>Banking Details</h3>
+              <p class="section-desc">For automatic settlement of invoices.</p>
+              <button
+                class="btn-ghost"
+                id="edit-bank-btn"
+                type="button"
+                onclick="toggleEdit('bankForm', 'edit-bank-btn')"
+              >
+                Update Bank
+              </button>
+            </header>
+
+            <form id="bankForm" onsubmit="saveBankDetails(event)">
+              <div class="form-grid">
+                <div class="input-group">
+                  <label>Bank Name</label>
+                  <div class="input-wrapper">
+                    <i class="fa-solid fa-building-columns input-icon"></i>
+                    <input type="text" id="bankName" disabled />
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <label>Account Number</label>
+                  <input type="password" id="accNum" disabled />
+                </div>
+
+                <div class="input-group">
+                  <label>Branch</label>
+                  <input type="text" id="branch" disabled />
+                </div>
+
+                <div class="input-group">
+                  <label>Remarks</label>
+                  <input type="text" id="remarks" disabled />
+                </div>
+              </div>
+
+              <div class="form-actions hidden" id="bankForm-actions">
+                <button
+                  type="button"
+                  class="btn-secondary"
+                  onclick="window.location.reload()"
+                >
+                  Cancel
+                </button>
+                <button type="submit" class="btn-primary">
+                  Update Bank Info
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Security -->
+          <div class="settings-card">
+            <header class="card-header">
+              <h3>Security</h3>
+            </header>
+
+            <form id="passwordForm" onsubmit="updateSupplierPassword(event)">
+              <div class="form-grid">
+                <div class="input-group">
+                  <label>New Password</label>
+                  <input
+                    type="password"
+                    id="newPassword"
+                    placeholder="Enter new password"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-actions" style="margin-top: 1rem">
+                <button type="submit" class="btn-outline-danger">
+                  Update Password
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      // Toggle edit (keeps BRN locked)
+      function toggleEdit(formId, btnId) {
+        const form = document.getElementById(formId);
+        const btn = document.getElementById(btnId);
+        const actions = document.getElementById(`${formId}-actions`);
+
+        // enable all inputs except those with title "Cannot change BRN"
+        const inputs = form.querySelectorAll(
+          'input:not([title*="Cannot"]), textarea',
+        );
+
+        inputs.forEach((input) => {
+          input.disabled = false;
+          input.style.borderColor = "#f97316";
+          input.style.background = "white";
+        });
+
+        // unmask account number
+        if (formId === "bankForm") {
+          document.getElementById("accNum").type = "text";
+        }
+
+        actions.classList.remove("hidden");
+        btn.style.display = "none";
+      }
+
+      async function loadSupplierProfile() {
+        const res = await fetch("../php/supplier-get-profile.php", {
+          credentials: "same-origin",
+        });
+
+        if (res.status === 401) {
+          window.location.href = "supplier-login.html";
+          return;
+        }
+
+        const s = await res.json();
+        if (!res.ok || s.error) {
+          alert(s.error || "Failed to load profile");
+          return;
+        }
+
+        // Sidebar
+        document.getElementById("sidebarCompany").textContent =
+          s.company || s.name || "Supplier";
+        document.getElementById("sidebarSupplierId").textContent =
+          "SUP-" + (s.supplierId ?? 0);
+
+        // Company
+        document.getElementById("companyName").value = s.company || "";
+        document.getElementById("brn").value = s.brn || "";
+        document.getElementById("email").value = s.email || "";
+        document.getElementById("phone").value = s.phone || "";
+        document.getElementById("address").value = s.address || "";
+
+        // Bank
+        document.getElementById("bankName").value = s.bankName || "";
+        document.getElementById("accNum").value = s.accountNo || "";
+        document.getElementById("branch").value = s.branch || "";
+        document.getElementById("remarks").value = s.remarks || "";
+      }
+
+      async function saveCompanyDetails(e) {
+        e.preventDefault();
+
+        const company = document.getElementById("companyName").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const address = document.getElementById("address").value.trim();
+
+        const res = await fetch("../php/supplier-update-company.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ company, email, phone, address }),
+          credentials: "same-origin",
+        });
+
+        const data = await res.json();
+        if (!res.ok || data.error) {
+          alert(data.error || "Update failed");
+          return;
+        }
+
+        alert("Company details updated successfully.");
+        window.location.reload();
+      }
+
+      async function saveBankDetails(e) {
+        e.preventDefault();
+
+        const bankName = document.getElementById("bankName").value.trim();
+        const accountNo = document.getElementById("accNum").value.trim();
+        const branch = document.getElementById("branch").value.trim();
+        const remarks = document.getElementById("remarks").value.trim();
+
+        const res = await fetch("../php/supplier-update-bank.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ bankName, accountNo, branch, remarks }),
+          credentials: "same-origin",
+        });
+
+        const data = await res.json();
+        if (!res.ok || data.error) {
+          alert(data.error || "Update failed");
+          return;
+        }
+
+        alert("Banking details updated.");
+        window.location.reload();
+      }
+
+      async function updateSupplierPassword(e) {
+        e.preventDefault();
+
+        const newPassword = document.getElementById("newPassword").value.trim();
+        if (!newPassword) return alert("Enter a new password");
+
+        const res = await fetch("../php/supplier-update-password.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ newPassword }),
+          credentials: "same-origin",
+        });
+
+        const data = await res.json();
+        if (!res.ok || data.error) {
+          alert(data.error || "Password update failed");
+          return;
+        }
+
+        alert("Password updated successfully!");
+        window.location.reload();
+      }
+
+      loadSupplierProfile();
+    </script>
+  </body>
+</html>

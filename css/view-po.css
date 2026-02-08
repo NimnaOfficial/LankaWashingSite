@@ -1,0 +1,191 @@
+/* --- SUPPLIER VIEW PO STYLES --- */
+
+/* 1. Supplier Navbar Overrides */
+.dashboard-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+/* Supplier Orange Brand Dot */
+.dot-orange { color: #f97316; }
+
+.nav-actions { display: flex; align-items: center; gap: 1rem; }
+
+.btn-text-sm {
+    text-decoration: none;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.btn-text-sm:hover {
+    color: #ea580c; /* Orange hover */
+    background: #fff7ed;
+    transform: translateX(-3px);
+}
+
+.btn-logout {
+    color: #dc2626;
+    padding: 0.5rem;
+    font-size: 1.1rem;
+    transition: all 0.2s;
+}
+.btn-logout:hover { background: #fee2e2; border-radius: 6px; }
+
+/* 2. Page Header & Filter */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 5%;
+}
+
+.page-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+}
+
+.page-header-row h2 {
+    font-size: 1.75rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+.page-header-row p { color: var(--text-light); }
+
+/* Filter Dropdown */
+.select-wrapper-sm { position: relative; display: flex; align-items: center; }
+
+.select-icon-sm {
+    position: absolute;
+    right: 1rem;
+    color: #f97316; /* Orange Icon */
+    pointer-events: none;
+    font-size: 0.85rem;
+}
+
+.filter-select {
+    padding: 0.75rem 2.5rem 0.75rem 1.25rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background: white;
+    font-weight: 600;
+    color: var(--text-main);
+    cursor: pointer;
+    appearance: none;
+    transition: all 0.2s;
+}
+
+.filter-select:hover { border-color: #f97316; }
+
+/* 3. Data Table */
+.table-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+}
+
+.table-responsive { overflow-x: auto; }
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.data-table thead { background: #fff7ed; /* Light orange tint for header */ border-bottom: 2px solid #fed7aa; }
+
+.data-table th {
+    padding: 1rem 1.5rem;
+    font-weight: 700;
+    color: #c2410c; /* Dark Orange Text */
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.data-table td {
+    padding: 1.25rem 1.5rem;
+    color: var(--text-main);
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+}
+
+/* 4. Column Styles */
+.fw-bold { font-weight: 700; color: #ea580c; font-family: monospace; }
+.fw-amount { font-weight: 700; color: var(--text-main); font-size: 1rem; }
+.text-muted { color: #94a3b8; font-size: 0.9rem; }
+.text-strike { text-decoration: line-through; color: #94a3b8; }
+.text-right { text-align: right; }
+.text-locked { color: #94a3b8; font-size: 0.85rem; font-weight: 500; }
+
+.item-detail { display: flex; flex-direction: column; gap: 2px; }
+.item-detail strong { font-weight: 600; font-size: 0.95rem; }
+.item-detail span { font-size: 0.8rem; color: #64748b; }
+
+/* 5. Badges */
+.badge {
+    padding: 0.35rem 0.85rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.badge-warning { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; } /* Pending */
+.badge-success { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; } /* Accepted */
+.badge-danger  { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; } /* Rejected */
+
+/* 6. Action Buttons */
+.action-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.btn-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* Accept (Green) */
+.btn-accept { background: #f0fdf4; color: #16a34a; border-color: #dcfce7; }
+.btn-accept:hover { background: #16a34a; color: white; transform: scale(1.05); }
+
+/* Reject (Red) */
+.btn-reject { background: #fef2f2; color: #dc2626; border-color: #fee2e2; }
+.btn-reject:hover { background: #dc2626; color: white; transform: scale(1.05); }

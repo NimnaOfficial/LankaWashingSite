@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enterprise Portal | Welcome</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="logo">Washing Unit (Pvt) Ltd <span class="dot">.</span></div>
+      <div class="nav-links">
+        <a href="#" class="active">Home</a>
+        <a href="html/features.html">Features</a>
+        <a href="html/contact.html">Contact</a>
+      </div>
+      <div class="auth-buttons">
+        <a href="html/customer-login.html" class="btn-text">Sign In</a>
+        <a href="html/register.html" class="btn-primary">Get Started</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-content">
+        <h1>Unified Order & Supply Management</h1>
+        <p>
+          Streamline your procurement, track orders in real-time, and manage
+          payments with our secure enterprise solution.
+        </p>
+
+        <div class="cta-group">
+          <button class="btn-primary" onclick="scrollToRoles()">
+            Access Portal
+          </button>
+          <a href="html/features.html" class="btn-secondary">Learn More</a>
+        </div>
+      </div>
+
+      <div
+        class="hero-image"
+        style="
+          background: url(&quot;/AFinal/images/img22.jpeg&quot;)
+            center/cover no-repeat;
+          height: 400px;
+          width: 45%;
+        "
+      >
+        <div class="abstract-card">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Efficiency +35%</span>
+        </div>
+        <div class="abstract-card card-2">
+          <i class="fa-solid fa-check-circle"></i>
+          <span>Order Complete</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="role-selection" id="roles">
+      <div class="section-header">
+        <h2>Select Your Portal</h2>
+        <p>Choose your role to access the dedicated dashboard.</p>
+      </div>
+
+      <div class="cards-container">
+        <div class="role-card">
+          <div class="icon-box">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <h3>Customer Portal</h3>
+          <p>
+            Place orders, track deliveries, and manage your payment history.
+          </p>
+          <a href="html/customer-login.html" class="btn-outline"
+            >Login as Customer &rarr;</a
+          >
+        </div>
+
+        <div class="role-card">
+          <div class="icon-box">
+            <i class="fa-solid fa-truck-fast"></i>
+          </div>
+          <h3>Supplier Hub</h3>
+          <p>
+            View purchase orders, upload invoices, and track payment status.
+          </p>
+          <a href="html/supplier-login.html" class="btn-outline"
+            >Login as Supplier &rarr;</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 Enterprise Systems. All rights reserved.</p>
+    </footer>
+
+    <script>
+      function scrollToRoles() {
+        document.getElementById("roles").scrollIntoView({ behavior: "smooth" });
+      }
+    </script>
+  </body>
+</html>

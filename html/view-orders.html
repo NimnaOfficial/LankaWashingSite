@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enterprise Portal | Manage Orders</title>
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="../css/view-orders.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="dashboard-navbar">
+      <div class="logo">
+        <a href="customer-dashboard.html"
+          >Washing Unit (Pvt) Ltd<span class="dot">.</span></a
+        >
+      </div>
+
+      <div class="user-menu">
+        <div class="nav-actions">
+          <a href="customer-dashboard.html" class="btn-text-sm">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+          </a>
+          <a href="../php/logout.php" class="btn-logout" title="Logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="dashboard-container">
+      <header class="page-header-row">
+        <div>
+          <h2>Manage Orders</h2>
+          <p>Edit details or cancel pending service requests.</p>
+        </div>
+
+        <div class="header-actions">
+          <select class="filter-select" id="statusFilter">
+            <option value="all">All</option>
+            <option value="pending">Pending</option>
+            <option value="processing">Processing</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+      </header>
+
+      <div class="table-card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Product Name</th>
+                <th>Expected Date</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody id="orderTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <div id="editModal" class="modal-overlay" style="display: none;">
+      <div class="modal-card">
+        <header class="modal-header">
+          <h3>Edit Request Details</h3>
+          <button class="btn-close" type="button" onclick="closeModal()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </header>
+
+        <form id="editForm">
+          <input type="hidden" id="edit-id" name="requestId">
+          <input type="hidden" id="edit-desc" value="">
+
+          <div class="modal-body">
+            <div class="input-group">
+              <label>Product Name</label>
+              <input type="text" id="edit-product" required />
+            </div>
+
+            <div class="input-group">
+              <label>Priority</label>
+              <select id="edit-priority">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Expected Date</label>
+              <input type="date" id="edit-date" required />
+            </div>
+
+            <div class="input-group">
+              <label>Quantity</label>
+              <input type="number" id="edit-qty" required min="1" />
+            </div>
+          </div>
+
+          <footer class="modal-footer">
+            <button type="button" class="btn-secondary" onclick="closeModal()">
+              Discard
+            </button>
+            <button type="submit" class="btn-primary">Save Changes</button>
+          </footer>
+        </form>
+      </div>
+    </div>
+
+    <script src="../js/view-orders.js"></script>
+  </body>
+</html>

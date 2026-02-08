@@ -1,0 +1,209 @@
+/* --- SUPPLIER UPLOAD INVOICE STYLES --- */
+
+/* 1. Global Supplier Theme Override */
+:root {
+    --supplier-orange: #f97316;
+    --supplier-dark: #c2410c;
+    --supplier-bg: #fff7ed;
+}
+
+/* Navbar */
+.dashboard-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.logo a { text-decoration: none; color: #0f172a; font-size: 1.5rem; font-weight: 800; }
+.dot-orange { color: var(--supplier-orange); }
+
+.nav-actions { display: flex; gap: 1rem; align-items: center; }
+
+.btn-text-sm {
+    text-decoration: none;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+}
+.btn-text-sm:hover { color: var(--supplier-orange); }
+.btn-logout { color: #dc2626; font-size: 1.1rem; }
+
+/* 2. Page Layout */
+.invoice-container {
+    min-height: 90vh;
+    padding: 3rem 5%;
+    display: flex;
+    justify-content: center;
+    background: #f8fafc;
+    background-image: radial-gradient(#fed7aa 1px, transparent 1px); /* Orange dots */
+    background-size: 25px 25px;
+}
+
+.invoice-card {
+    background: white;
+    width: 100%;
+    max-width: 650px;
+    border-radius: 24px;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    border: 1px solid white;
+    padding: 2.5rem;
+    height: fit-content;
+}
+
+/* 3. Header */
+.card-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.header-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--supplier-bg);
+    color: var(--supplier-orange);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    margin: 0 auto 1rem;
+}
+
+.card-header h2 {
+    font-size: 1.75rem;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.card-header p { color: #64748b; }
+
+/* 4. Form Layout */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.full-width { grid-column: span 2; }
+
+@media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .full-width { grid-column: span 1; }
+}
+
+/* Inputs */
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #0f172a;
+}
+
+.input-group input[type="text"],
+.input-group input[type="date"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    background: #fff;
+    transition: all 0.2s;
+    color: #0f172a;
+}
+
+/* Custom Select Dropdown */
+.select-wrapper { position: relative; display: flex; align-items: center; }
+.select-icon {
+    position: absolute;
+    right: 1rem;
+    color: var(--supplier-orange);
+    pointer-events: none;
+    font-size: 0.85rem;
+}
+select { appearance: none; cursor: pointer; }
+
+/* Focus States (Orange Theme) */
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--supplier-orange);
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1);
+}
+
+.helper-text { font-size: 0.8rem; color: #94a3b8; margin-top: 0.3rem; display: block; }
+
+/* 5. Drag & Drop File Zone */
+.drop-zone {
+    position: relative;
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    background: #f8fafc;
+    padding: 2rem 1rem;
+    text-align: center;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.drop-zone:hover {
+    border-color: var(--supplier-orange);
+    background: var(--supplier-bg);
+}
+
+.file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.upload-icon {
+    font-size: 2rem;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+}
+
+.drop-zone:hover .upload-icon { color: var(--supplier-orange); }
+
+.drop-text { font-size: 1rem; color: #0f172a; margin-bottom: 0.5rem; }
+.drop-text strong { color: var(--supplier-orange); }
+
+.file-info { font-size: 0.85rem; color: #64748b; }
+
+/* 6. Buttons */
+.form-actions { margin-top: 2rem; }
+
+.btn-primary {
+    background: var(--supplier-orange);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: var(--supplier-dark);
+    transform: translateY(-1px);
+}

@@ -1,0 +1,224 @@
+/* --- REGISTER PAGE SPECIFIC STYLES --- */
+
+/* 1. Layout Wrapper: Centers the card vertically and horizontally */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--secondary-bg); /* Matches site theme */
+    background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+    background-size: 20px 20px; /* Subtle dot pattern */
+    padding: 2rem;
+}
+
+/* 2. The Auth Card */
+.auth-card {
+    background: white;
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    width: 100%;
+    max-width: 700px; /* Wider to accommodate 2-column inputs */
+    border: 1px solid white;
+}
+
+/* 3. Header Styling */
+.auth-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.brand-icon {
+    width: 60px;
+    height: 60px;
+    background: #eff6ff; /* Light blue circle */
+    color: var(--primary-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto 1rem;
+}
+
+.auth-header h2 {
+    font-size: 1.8rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+.auth-header p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+/* 4. Form Grid System */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 1.5rem;
+}
+
+.full-width {
+    grid-column: span 2; /* Spans across both columns */
+}
+
+/* Mobile Responsiveness: Stack columns on small screens */
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr; 
+    }
+    .full-width {
+        grid-column: span 1;
+    }
+    .auth-card {
+        padding: 1.5rem;
+    }
+}
+
+/* 5. Input Field Styling */
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    pointer-events: none; /* Allows clicking through the icon */
+}
+
+.input-wrapper input,
+textarea {
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 2.5rem; /* Left padding makes room for icon */
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    background: #f8fafc;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+textarea {
+    padding: 0.85rem 1rem; /* No icon in textarea usually */
+    resize: vertical;
+}
+
+/* Focus States */
+.input-wrapper input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); /* Soft blue ring */
+}
+
+/* 6. Utility Classes */
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.error-msg {
+    color: #dc2626;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: none; /* Hidden by default */
+    font-weight: 500;
+    animation: shake 0.3s ease-in-out;
+}
+
+/* 7. Footer Links */
+.auth-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.auth-footer a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Shake Animation for Errors */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+/* --- Add to register.css --- */
+
+/* Auth Navbar Styles */
+.auth-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background: transparent;
+    position: absolute; /* Sits on top of the content */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.auth-navbar .logo a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.auth-navbar .logo .dot {
+    color: var(--primary-blue);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-text-sm {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.5); /* Slight glass effect */
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-text-sm:hover {
+    background: white;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 0.05);
+    color: var(--primary-blue);
+}
+
+/* Ensure the main content has space at the top so it doesn't overlap the logo on small screens */
+.auth-wrapper {
+    padding-top: 6rem; 
+}

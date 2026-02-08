@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Portal | Customer Login</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="auth-navbar">
+        <div class="logo">
+            <a href="../index.html">Washing Unit (Pvt) Ltd<span class="dot">.</span></a>
+        </div>
+        <div class="nav-actions">
+            <span class="nav-text">Are you a supplier?</span>
+            <a href="supplier-login.html" class="btn-text-sm">Supplier Login &rarr;</a>
+        </div>
+    </nav>
+
+    <main class="login-wrapper">
+        <div class="login-card">
+            
+            <header class="login-header">
+                <h2>Welcome Back</h2>
+                <p>Please enter your details to access your dashboard.</p>
+            </header>
+
+            <form class="enterprise-form" id="loginForm">
+                
+                <div class="input-group">
+                    <label for="username">Username or Email</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-user input-icon"></i>
+                        <input type="text" id="username" name="login" placeholder="Enter your username or email" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    </div>
+                    <div class="forgot-pass">
+                        <a href="#">Forgot password?</a> 
+                    </div>
+                </div>
+
+                <div id="loginError" style="display: none; margin-top: 10px; color: #dc2626; background: #fee2e2; padding: 10px; border-radius: 6px; font-size: 14px; text-align: center;"></div>
+
+                <button type="submit" class="btn-primary full-width mt-4" id="loginBtn">Sign In</button>
+            </form>
+
+            <footer class="login-footer">
+                <p>New to Enterprise? <a href="register.html">Create an account</a></p>
+            </footer>
+        </div>
+    </main>
+
+    <script>
+        const form = document.getElementById("loginForm");
+        const errorBox = document.getElementById("loginError");
+        const loginBtn = document.getElementById("loginBtn");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            // Reset UI
+            errorBox.style.display = "none";
+            errorBox.textContent = "";
+            const originalBtnText = loginBtn.textContent;
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Signing in...';
+
+            const formData = new FormData();
+            formData.append('login', document.getElementById("username").value.trim());
+            formData.append('password', document.getElementById("password").value);
+
+            try {
+                // 1. CONNECT TO PHP BACKEND
+                const res = await fetch("../php/customer-login.php", {
+                    method: "POST",
+                    body: formData
+                });
+
+                // 2. PARSE JSON RESPONSE
+                const data = await res.json();
+
+                if (data.success) {
+                    // 3. SUCCESS: Redirect
+                    window.location.href = data.redirect;
+                } else {
+                    // 4. ERROR: Show message
+                    throw new Error(data.error || "Login failed");
+                }
+
+            } catch (err) {
+                errorBox.textContent = err.message;
+                errorBox.style.display = "block";
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.textContent = originalBtnText;
+            }
+        });
+    </script>
+
+</body>
+</html>

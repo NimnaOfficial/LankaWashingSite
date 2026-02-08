@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Portal | Place New Order</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/place-order.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="dashboard-navbar">
+        <div class="logo">
+            <a href="customer-dashboard.html">Washing Unit (Pvt) Ltd<span class="dot">.</span></a>
+        </div>
+        
+        <div class="user-menu">
+            <div class="nav-actions">
+                <a href="customer-dashboard.html" class="btn-text-sm">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+                </a>
+                <a href="../index.html" class="btn-logout" title="Logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="order-container">
+        
+        <div class="order-card">
+            <header class="form-header">
+                <h2>Place New Order</h2>
+                <p>Enter product details and priority level for production.</p>
+            </header>
+
+            <form class="enterprise-form" id="orderForm">
+                
+                <div class="form-grid">
+                    
+                    <div class="input-group">
+                        <label for="product-name">Product Name</label>
+                        <input type="text" id="product-name" placeholder="e.g. Mens Denim Jeans - Batch 205" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="priority">Priority Level</label>
+                        <div class="select-wrapper">
+                            <select id="priority" required>
+                                <option value="Low">Low</option>
+                                <option value="Medium" selected>Medium</option>
+                                <option value="High">High</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="expected-date">Expected Date</label>
+                        <input type="date" id="expected-date" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="quantity">Quantity (Units)</label>
+                        <input type="number" id="quantity" placeholder="0" min="1" required>
+                    </div>
+
+                    <div class="input-group full-width">
+                        <label for="description">Description / Specifications</label>
+                        <textarea id="description" rows="4" placeholder="Enter detailed specifications, size breakdown, or special instructions here..." required></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="window.location.href='customer-dashboard.html'">Cancel</button>
+                    <button type="submit" class="btn-primary" id="submitBtn">Submit Order</button>
+                </div>
+
+            </form>
+        </div>
+
+    </main>
+
+    <script>
+        const form = document.getElementById("orderForm");
+        const submitBtn = document.getElementById("submitBtn");
+
+        // Set Date Minimum to Today (UX Improvement)
+        const dateInput = document.getElementById("expected-date");
+        dateInput.min = new Date().toISOString().split("T")[0];
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // 1. GATHER DATA
+            const productName = document.getElementById("product-name").value.trim();
+            const priority = document.getElementById("priority").value;
+            const expectedDate = document.getElementById("expected-date").value;
+            const quantity = document.getElementById("quantity").value;
+            const description = document.getElementById("description").value.trim();
+
+            if (!productName || !expectedDate || !quantity || !description) {
+                alert("Please fill all fields.");
+                return;
+            }
+
+            // 2. DISABLE BUTTON
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+
+            try {
+                // 3. SEND TO PHP
+                const res = await fetch("../php/create-request.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        productName,
+                        priority,
+                        expectedDate,
+                        quantity,
+                        description,
+                    })
+                });
+
+                const data = await res.json().catch(() => ({}));
+
+                if (!res.ok || data.error) {
+                    throw new Error(data.error || "Request failed.");
+                }
+
+                // 4. SUCCESS
+                alert("Order Placed Successfully!");
+                window.location.href = "customer-dashboard.html";
+
+            } catch (err) {
+                alert("Error: " + err.message);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Order';
+            }
+        });
+    </script>
+
+</body>
+</html>

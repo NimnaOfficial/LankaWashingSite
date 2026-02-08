@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Portal | Create Account</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="auth-navbar">
+        <div class="logo">
+            <a href="../index.html">Washing Unit (Pvt) Ltd<span class="dot">.</span></a>
+        </div>
+        <div class="nav-actions">
+            <a href="../index.html" class="btn-text-sm">
+                <i class="fa-solid fa-house"></i> Home
+            </a>
+        </div>
+    </nav>
+
+    <main class="auth-wrapper">
+        <div class="auth-card">
+            <header class="auth-header">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+                <h2>Create Customer Account</h2>
+                <p>Join our enterprise network to manage orders and payments.</p>
+            </header>
+
+            <form id="regForm" class="enterprise-form" onsubmit="return validateForm(event)">
+                <div class="form-grid">
+                    <div class="input-group full-width">
+                        <label for="fullname">Full Name</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-user input-icon"></i>
+                            <input type="text" id="fullname" placeholder="Enter your full legal name" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-envelope input-icon"></i>
+                            <input type="email" id="email" placeholder="name@company.com" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="phone">Phone Number</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-phone input-icon"></i>
+                            <input type="tel" id="phone" placeholder="+1 (555) 000-0000" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group full-width">
+                        <label for="address">Billing Address</label>
+                        <textarea id="address" rows="2" placeholder="Street, City, Zip Code" required></textarea>
+                    </div>
+
+                    <div class="input-group full-width">
+                        <label for="username">Username</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-at input-icon"></i>
+                            <input type="text" id="username" placeholder="Choose a unique username" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock input-icon"></i>
+                            <input type="password" id="password" placeholder="••••••••" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock input-icon"></i>
+                            <input type="password" id="confirm-password" placeholder="••••••••" required>
+                        </div>
+                        <small class="error-msg" id="passError">
+                            <i class="fa-solid fa-circle-exclamation"></i> Passwords do not match.
+                        </small>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary full-width mt-4">Register Account</button>
+            </form>
+
+            <footer class="auth-footer">
+                <p>Already have an account? <a href="customer-login.html">Login here</a></p>
+            </footer>
+        </div>
+    </main>
+
+    <script>
+    async function validateForm(e) {
+        e.preventDefault(); // Stop page reload
+
+        // Get elements
+        const name = document.getElementById('fullname').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const address = document.getElementById('address').value;
+        const username = document.getElementById('username').value;
+        const pass = document.getElementById('password').value;
+        const confirm = document.getElementById('confirm-password').value;
+        const errorMsg = document.getElementById('passError');
+        const submitBtn = document.querySelector('button[type="submit"]');
+
+        // Simple Validation
+        if (pass !== confirm) {
+            errorMsg.style.display = 'block';
+            document.getElementById('confirm-password').style.borderColor = '#dc2626';
+            return false;
+        }
+        errorMsg.style.display = 'none';
+        document.getElementById('confirm-password').style.borderColor = '#e2e8f0';
+
+        // Disable button to prevent double-submit
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Processing...";
+
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('phone', phone);
+        formData.append('address', address);
+        formData.append('username', username);
+        formData.append('password', pass);
+        formData.append('confirm_password', confirm);
+
+        try {
+            // ✅ UPDATED PATH: Pointing to the php folder
+            const response = await fetch('../php/register.php', { 
+                method: 'POST',
+                body: formData
+            });
+
+            // Read text first to debug if PHP crashes
+            const text = await response.text();
+            
+            let result;
+            try {
+                result = JSON.parse(text);
+            } catch (err) {
+                console.error("Server returned non-JSON response:", text);
+                throw new Error("Server Error: Check console for details.");
+            }
+
+            if (response.ok && result.success) {
+                alert("Registration Successful! Redirecting to login...");
+                window.location.href = 'customer-login.html';
+            } else {
+                alert(result.error || "Registration failed.");
+            }
+        } catch (error) {
+            console.error('Fetch Error:', error);
+            alert(error.message);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Register Account";
+        }
+    }
+    </script>
+
+</body>
+</html>

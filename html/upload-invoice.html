@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Portal | Send Invoice</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/upload-invoice.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="dashboard-navbar">
+        <div class="logo">
+            <a href="supplier-dashboard.html">Washing Unit (Pvt) Ltd<span class="dot-orange">.</span></a>
+        </div>
+        
+        <div class="user-menu">
+            <div class="nav-actions">
+                <a href="supplier-dashboard.html" class="btn-text-sm">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+                </a>
+                <a href="../php/supplier-logout.php" class="btn-logout" title="Logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="invoice-container">
+        <div class="invoice-card">
+            <header class="card-header">
+                <div class="header-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                <h2>Submit Invoice</h2>
+                <p>Select an accepted order to submit your invoice.</p>
+            </header>
+
+            <form class="enterprise-form" onsubmit="submitInvoice(event)">
+                <div class="form-grid">
+                    
+                    <div class="input-group full-width">
+                        <label for="po-select">Select Accepted Order</label>
+                        <div class="select-wrapper">
+                            <select id="po-select" required onchange="autoFillAmount()">
+                                <option value="" disabled selected>Loading orders...</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-icon"></i>
+                        </div>
+                        <small class="helper-text" id="amount-hint">Select an order to see value.</small>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="invoice-num">Invoice Number</label>
+                        <input type="text" id="invoice-num" placeholder="e.g. INV-001" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="invoice-date">Invoice Date</label>
+                        <input type="date" id="invoice-date" required>
+                    </div>
+
+                    <div class="input-group full-width">
+                        <label>Upload Invoice File (PDF/Image)</label>
+                        <div class="drop-zone" id="drop-zone">
+                            <input type="file" id="file-upload" class="file-input" accept=".pdf, .jpg, .png" onchange="handleFileSelect(this)">
+                            <div class="drop-content">
+                                <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                                <p class="drop-text"><strong>Click to upload</strong></p>
+                                <p class="file-info" id="file-name">Max 5MB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group full-width">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" rows="2" placeholder="Optional remarks..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary full-width">
+                        <i class="fa-solid fa-paper-plane"></i> Submit Invoice
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', loadAcceptedOrders);
+
+        async function loadAcceptedOrders() {
+            const select = document.getElementById('po-select');
+            try {
+                // We use 'all' to get everything, then filter in JS for specific statuses
+                const res = await fetch('../php/supplier-get-pos.php?status=all');
+                const data = await res.json();
+
+                if (!data.success) throw new Error("Failed");
+
+                select.innerHTML = '<option value="" disabled selected>Select an approved PO...</option>';
+                
+                // Filter for Accepted (PO) or Completed (Delivery)
+                const eligible = data.rows.filter(r => {
+                    const s = r.status.toLowerCase();
+                    return s === 'accepted' || s === 'completed' || s === 'received';
+                });
+
+                if (eligible.length === 0) {
+                    select.innerHTML = '<option value="" disabled>No invoiceable orders found</option>';
+                    return;
+                }
+
+                eligible.forEach(order => {
+                    const prefix = order.type === 'DELIVERY' ? 'DEL-' : 'PO-';
+                    const idStr = String(order.id).padStart(4, '0');
+                    const ref = prefix + idStr;
+                    const amt = parseFloat(order.orderTotal).toLocaleString(undefined, {minimumFractionDigits: 2});
+                    
+                    const opt = document.createElement('option');
+                    opt.value = ref;
+                    opt.textContent = `${ref} - $${amt} (${order.orderDate})`;
+                    // Store amount in data attribute for helper text
+                    opt.dataset.amount = amt;
+                    select.appendChild(opt);
+                });
+
+            } catch (err) {
+                console.error(err);
+                select.innerHTML = '<option value="" disabled>Error loading orders</option>';
+            }
+        }
+
+        function autoFillAmount() {
+            const select = document.getElementById('po-select');
+            const amt = select.options[select.selectedIndex].dataset.amount;
+            if(amt) {
+                document.getElementById('amount-hint').innerText = `Order Value: $${amt}`;
+                document.getElementById('amount-hint').style.color = "#16a34a";
+                document.getElementById('amount-hint').style.fontWeight = "bold";
+            }
+        }
+
+        function handleFileSelect(input) {
+            const display = document.getElementById('file-name');
+            if (input.files[0]) {
+                display.innerHTML = `<i class="fa-solid fa-check"></i> ${input.files[0].name}`;
+                display.style.color = "green";
+            }
+        }
+
+        function submitInvoice(e) {
+            e.preventDefault();
+            const btn = document.querySelector('.btn-primary');
+            const originalText = btn.innerHTML;
+            
+            const po = document.getElementById('po-select').value;
+            const file = document.getElementById('file-upload').files[0];
+
+            if(!po || !file) {
+                alert("Please select an order and upload a file.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('poNumber', po);
+            formData.append('invoiceNum', document.getElementById('invoice-num').value);
+            formData.append('invoiceDate', document.getElementById('invoice-date').value);
+            formData.append('notes', document.getElementById('notes').value);
+            formData.append('invoiceFile', file);
+
+            btn.innerHTML = 'Uploading...';
+            btn.disabled = true;
+
+            fetch('../php/upload_invoice.php', { method: 'POST', body: formData })
+            .then(r => r.json())
+            .then(data => {
+                if(data.success) {
+                    alert("Invoice Sent Successfully!");
+                    window.location.href = 'supplier-dashboard.html';
+                } else {
+                    alert("Error: " + (data.error || "Upload failed"));
+                }
+            })
+            .catch(() => alert("Network Error"))
+            .finally(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
